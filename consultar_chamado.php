@@ -15,12 +15,18 @@
   while(!(feof($arquivo))){ //testa pelo fim de um arquivo
     // linhas
     // fgets recupera o que tá na linha até encontrar a quebra de linha
-    $registro = fgets($arquivo);
+    $registro = explode('#',fgets($arquivo));
 
-    echo $registro;
+    // se o perfil_id for de usuário e diferente o id com id vai voltar para o while e NÃO vai adicionar a linha no array
+    if($_SESSION['perfil_id'] == 2){
+      if($registro[0] != $_SESSION['id']){
+        continue;
+      }
+    }
 
     $chamados[] = $registro;
   }
+  print_r($chamados);
 
   // fechar arquivo aberto
   fclose($arquivo);
@@ -70,20 +76,8 @@
               <?php foreach($chamados as $chamado){?>
 
                 <?php
-
-                  // retorna um array de strings cada um com substring formada pela divição dela a partir de um delimitador (#, ou qualquer outro)
-                  $chamado_dados = explode('#', $chamado); 
-
-                  // se o perfil for igual a 2 que é de usuário
-                  if($_SESSION['perfil_id'] == 2){
-                    // só vamos exibir o chamado se ele for criado pelo usuário
-                    if($_SESSION['id'] != $chamado_dados[0]){
-                      continue;
-                    }
-                  }
-
                   // se o array chamado_dados conter menos que 3 indices ele vai voltar para o foreach e não fazer a impressão
-                  if(count($chamado_dados) < 3){
+                  if(count($chamado) < 3){
                     continue;
                   }
                 ?>
@@ -91,13 +85,13 @@
                 <div class="card mb-3 bg-light">
                   <div class="card-body">
                     <h5 class="card-title">
-                      <?php echo $chamado_dados[1]; ?>
+                      <?php echo $chamado[1]; ?>
                     </h5>
                     <h6 class="card-subtitle mb-2 text-muted">
-                    <?php echo $chamado_dados[2]; ?>
+                    <?php echo $chamado[2]; ?>
                     </h6>
                     <p class="card-text">
-                    <?php echo $chamado_dados[3]; ?>
+                    <?php echo $chamado[3]; ?>
                     </p>
 
                   </div>
