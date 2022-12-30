@@ -1,6 +1,4 @@
 <?php
-// se ela não puder ser utilizada vai impedir que o conteúdo seja transmitido por causa do fatal error do require
-// fazendo o requite do validador_acesso.php faz com que não precisamos usar o session_start() nessa aplicação, pois lá já está sendo iniciado o session
 require_once "validador_acesso.php";
 ?>
 <html>

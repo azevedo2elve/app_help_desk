@@ -1,34 +1,23 @@
 <?php
-  // se ela não puder ser utilizada vai impedir que o conteúdo seja transmitido por causa do fatal error do require
   require_once "validador_acesso.php";
 ?>
 
 <?php
-
-  // chamados
   $chamados = array();
 
-  // abrir o arquivo .hd
   $arquivo = fopen('arquivo.hd', 'r');
 
-  // enquanto houver registros (linhas) a serem recuperados
-  while(!(feof($arquivo))){ //testa pelo fim de um arquivo
-    // linhas
-    // fgets recupera o que tá na linha até encontrar a quebra de linha
+  while(!(feof($arquivo))){ 
     $registro = explode('#',fgets($arquivo));
 
-    // se o perfil_id for de usuário e diferente o id com id vai voltar para o while e NÃO vai adicionar a linha no array
     if($_SESSION['perfil_id'] == 2){
       if($registro[0] != $_SESSION['id']){
         continue;
       }
     }
-
     $chamados[] = $registro;
   }
   print_r($chamados);
-
-  // fechar arquivo aberto
   fclose($arquivo);
 ?>
 
@@ -37,7 +26,7 @@
     <meta charset="utf-8" />
     <title>App Help Desk</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https:
 
     <style>
       .card-consultar-chamado {
@@ -72,16 +61,13 @@
             </div>
             
             <div class="card-body">
-            
+              
               <?php foreach($chamados as $chamado){?>
-
                 <?php
-                  // se o array chamado_dados conter menos que 3 indices ele vai voltar para o foreach e não fazer a impressão
                   if(count($chamado) < 3){
                     continue;
                   }
                 ?>
-
                 <div class="card mb-3 bg-light">
                   <div class="card-body">
                     <h5 class="card-title">
@@ -93,7 +79,6 @@
                     <p class="card-text">
                     <?php echo $chamado[3]; ?>
                     </p>
-
                   </div>
                 </div>
               <?php } ?>

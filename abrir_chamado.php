@@ -1,5 +1,4 @@
 <?php
-  // se ela não puder ser utilizada vai impedir que o conteúdo seja transmitido por causa do fatal error do require
   require_once "validador_acesso.php";
 ?>
 <html>
